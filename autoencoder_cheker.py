@@ -19,23 +19,23 @@ files = []
 
 if __name__ == '__main__':
     # ここは顔判断したい画像を指定
-    image_pic = cv2.imread("./g-0484-01.jpg")
+    image_pic = cv2.imread("./hirose_suzu.jpg")
 
 # # 顔認識の実行
-# face = cascade.detectMultiScale(image_pic)
-#
-# if len(face) == 0:
-#     print("顔検出できませんでした")
-#     exit()
-#
-# # 顔部分を切り取る
-# for x, y, w, h in face:
-#     face_cut = image_pic[y:y + h, x:x + w]
-#
-# cv2.imwrite('face_cut.jpg', face_cut)
+face = cascade.detectMultiScale(image_pic)
+
+if len(face) == 0:
+    print("顔検出できませんでした")
+    exit()
+
+# 顔部分を切り取る
+for x, y, w, h in face:
+    face_cut = image_pic[y:y + h, x:x + w]
+
+cv2.imwrite('face_cut.jpg', face_cut)
 
 # 画像の読み込み
-img = Image.open("./g-0484-01.jpg")
+img = Image.open("./face_cut.jpg")
 img = img.convert("RGB")
 img = img.resize((image_size, image_size))
 

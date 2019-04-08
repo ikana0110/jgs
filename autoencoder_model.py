@@ -111,8 +111,8 @@ def main():
 
     plt.figure(figsize=(20, 4))
     for i in range(n):
-        # 特徴量を抽出す　→同じ数値しか取れない・・・
-        print('特徴量', y[i].shape)
+        # 特徴量を抽出する
+        print('特徴量' + str(i + 1), y[i])
         # オリジナルのテスト画像を表示
         ax = plt.subplot(2, n, i + 1)
         plt.imshow(x_test[i])
