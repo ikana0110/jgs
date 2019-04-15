@@ -90,15 +90,15 @@ def main():
     # x_train = x_train.reshape((len(x_train), np.prod(x_train.shape[1:])))
     # x_test = x_test.reshape((len(x_test), np.prod(x_test.shape[1:])))
 
-    x_train, x_test, _, _ = np.load("./image/face3.npy")
+    x_train, x_test = np.load("./image/autoencoder_data3.npy")
     x_train = x_train.astype('float32') / 255
     x_test = x_test.astype('float32') / 255
 
     # モデルを訓練
-    # autoencoder = train_model(x_train, x_test)
+    autoencoder = train_model(x_train, x_test)
 
     # モデルを読み込む
-    autoencoder = load_model(x_test)
+    # autoencoder = load_model(x_test)
 
     # 中間層の特徴量を抽出する
     checkpoint_model = Model(autoencoder.input, autoencoder.get_layer(name='encoder_layer').output)
@@ -157,9 +157,9 @@ def train_model(x_train, x_test):
     # モデルの構築
     autoencoder = build_model(x_train.shape[1:])
     # モデルの訓練
-    autoencoder.fit(x_train, x_train, nb_epoch=10, batch_size=32, shuffle=True, validation_data=(x_test, x_test))
+    autoencoder.fit(x_train, x_train, nb_epoch=50, batch_size=32, shuffle=True, validation_data=(x_test, x_test))
     # モデルの保存
-    autoencoder.save_weights('autoencoder.h5')
+    autoencoder.save_weights('autoencoder4.h5')
     return autoencoder
 
 # モデルを読み込む
@@ -167,7 +167,7 @@ def load_model(x_train):
     # モデルの構築
     autoencoder = build_model(x_train.shape[1:])
     # モデル読み込み
-    autoencoder.load_weights('autoencoder.h5')
+    autoencoder.load_weights('autoencoder4.h5')
     return autoencoder
 
 if __name__ == "__main__":

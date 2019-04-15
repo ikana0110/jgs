@@ -47,6 +47,7 @@ in_data = np.asarray(img)
 X.append(in_data)
 
 X = np.array(X)
+X = X / 255
 
 # x_train, x_test, _, _ = np.load("./image/face3.npy")
 # x_train = x_train.astype('float32') / 255
@@ -55,7 +56,7 @@ X = np.array(X)
 # モデル構築
 autoencoder = autoencoder_model.build_model(X.shape[1:])
 # autoencoder = autoencoder_model.build_model(x_train.shape[1:])
-autoencoder.load_weights('autoencoder.h5')
+autoencoder.load_weights('autoencoder4.h5')
 
 # データを予測
 decoded_imgs = autoencoder.predict(X)
