@@ -95,10 +95,10 @@ def main():
     x_test = x_test.astype('float32') / 255
 
     # モデルを訓練
-    autoencoder = train_model(x_train, x_test)
+    # autoencoder = train_model(x_train, x_test)
 
     # モデルを読み込む
-    # autoencoder = load_model(x_test)
+    autoencoder = load_model(x_test)
 
     # 中間層の特徴量を抽出する
     checkpoint_model = Model(autoencoder.input, autoencoder.get_layer(name='encoder_layer').output)
@@ -107,12 +107,19 @@ def main():
 
     decoded_imgs = autoencoder.predict(x_test)
 
+    # print("テスト", y.ndim)
+    # print("テスト特徴量", y)
+    # print("多次元構造:", y.shape)
+
     n = 10  # 10個の画像を表示する
 
     plt.figure(figsize=(20, 4))
     for i in range(n):
         # 特徴量を抽出する
-        print('特徴量' + str(i + 1), y[i])
+        print("特徴量" + str(i + 1) + ":", y[i])
+        print("特徴量の次元数:", y[i].ndim)
+        print("多次元構造:", y[i].shape)
+        print("要素をsum:", np.sum(y[i]))
         # オリジナルのテスト画像を表示
         ax = plt.subplot(2, n, i + 1)
         plt.imshow(x_test[i])
